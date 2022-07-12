@@ -4,7 +4,6 @@
 # @Author   : Twoyear
 # @url      : https://blackstress.io/
 import json
-
 import requests
 
 
@@ -44,4 +43,4 @@ def blackstress_hurt_ip(host="", port=80):
 
 
 if __name__ == '__main__':
-    blackstress_hurt_ip("8.130.26.206",80)
+    blackstress_hurt_ip("8.130.26.206", 80)
