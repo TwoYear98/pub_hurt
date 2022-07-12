@@ -56,7 +56,7 @@ def hurt():
             for user_info in run_user_info_list:
                 result = crypto_hurt(hurt_type, host, port, user_info)  # 返回成功或者失败后更新数据库字段
                 print(result)
-                if result["code"] == "200" or str(result["code"]) == 200:
+                if result["code"] == "200" or result["code"] == 200:
                     sql = "update cryptostresser_user set run_count = run_count + 1 where id = %s" % str(
                         user_info["id"])
                     Mysql_main(method="update", sql=sql)
