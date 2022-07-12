@@ -133,7 +133,6 @@ def hurt_main(type, host, port, user_info):
             result_text = cs.hurt_url(host)
         else:
             return {"status": "error", "msg": "type error，参数错误", "code": 400}
-        # print(result_text)
         if "Successfully started (1) attacks" in str(result_text):
             return {"status": "success", "msg": "hurt true", "code": 200}
         elif "No network space available for this attack" in str(result_text):

