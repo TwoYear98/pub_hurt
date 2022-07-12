@@ -37,7 +37,7 @@ def hurt():
         threads = int(request.form.get('threads', 1))
         type = request.form.get('type', "")
         hurt_type = request.form.get('hurt_type', "ip")
-        if str(host) == "" or str(port) == "":
+        if str(host) == "":
             return json.dumps({'code': '404', 'msg': '参数错误'})
         if str(type) == "max":
             '''
