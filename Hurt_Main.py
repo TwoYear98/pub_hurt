@@ -3,16 +3,19 @@
 # @File     : Hurt_Main.py
 # @Author   : Twoyear
 # 定义主函数，调用其他函数,Hurt调度
+
 import json
 import os
 import sys
+
+sys.path.append("/root/pub_hurt")
+sys.path.append(os.path.join(os.path.abspath(__file__)))
 from flask import Flask, request
 from flask_script import Manager
 from tool import Mysql_main
 from Hurt_list.cryptostresser import hurt_main as crypto_hurt
 import threading
 
-sys.path.append(os.path.join(os.path.abspath(__file__)))
 app = Flask(__name__)
 manager = Manager(app)
 
