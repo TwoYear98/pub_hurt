@@ -137,6 +137,11 @@ def hurt_main(type, host, port, user_info):
             return {"status": "success", "msg": "hurt true", "code": 200}
         elif "No network space available for this attack" in str(result_text):
             return {"status": "false", "msg": "没有可用空间，请稍等，本次跳过", "code": 401}
+        elif "You cant have any more simultaneous attacks" in str(result_text):
+            return {"status": "false", "msg": "请求中，请稍等", "code": 402}
+        else:
+            msg = "其他未知信息"+ str(result_text)
+            return {"status": "false", "msg": msg, "code": 404}
     except Exception as e:
         return {"status": "error", "msg": str(e), "code": 404}
 
